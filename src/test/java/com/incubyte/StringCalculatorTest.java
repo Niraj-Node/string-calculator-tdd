@@ -51,4 +51,13 @@ public class StringCalculatorTest {
         assertEquals("negatives not allowed: -2", exception.getMessage());
     }
 
+    @Test
+    void shouldThrowExceptionWithAllNegativeNumbersListed() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> calculator.add("-1,2,-4,5,-9")
+        );
+        assertEquals("negatives not allowed: -1, -4, -9", exception.getMessage());
+    }
+
 }
