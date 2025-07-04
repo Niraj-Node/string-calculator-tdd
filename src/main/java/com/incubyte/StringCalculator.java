@@ -9,15 +9,31 @@ public class StringCalculator {
 
         String delimiter = "[,\n]";
 
-        if (numbers.startsWith("//")) {
-            int delimiterEndIndex = numbers.indexOf("\n");
-            String customDelimiter = numbers.substring(2, delimiterEndIndex);
-            delimiter = Pattern.quote(customDelimiter);
-            numbers = numbers.substring(delimiterEndIndex + 1);
+        if (hasCustomDelimiter(numbers)) {
+            delimiter = extractDelimiter(numbers);
+            numbers = stripDelimiterHeader(numbers);
         }
 
-        String[] parts = numbers.split(delimiter);
-        return Arrays.stream(parts)
+        return sumOf(numbers.split(delimiter));
+    }
+
+    private boolean hasCustomDelimiter(String input) {
+        return input.startsWith("//");
+    }
+
+    private String extractDelimiter(String input) {
+        int delimiterEndIndex = input.indexOf("\n");
+        String customDelimiter = input.substring(2, delimiterEndIndex);
+        return Pattern.quote(customDelimiter);
+    }
+
+    private String stripDelimiterHeader(String input) {
+        int delimiterEndIndex = input.indexOf("\n");
+        return input.substring(delimiterEndIndex + 1);
+    }
+
+    private int sumOf(String[] numbers) {
+        return Arrays.stream(numbers)
                 .map(String::trim)
                 .mapToInt(Integer::parseInt)
                 .sum();
