@@ -33,16 +33,19 @@ public class StringCalculator {
     }
 
     private int sumOf(String[] numbers) {
+        int sum = 0;
         for (String str : numbers) {
             int num = Integer.parseInt(str.trim());
-            if (num < 0) {
-                throw new IllegalArgumentException("negatives not allowed: " + num);
-            }
+            checkNegative(num);
+            sum += num;
         }
 
-        return Arrays.stream(numbers)
-                .map(String::trim)
-                .mapToInt(Integer::parseInt)
-                .sum();
+        return sum;
+    }
+
+    private void checkNegative(int num) {
+        if (num < 0) {
+            throw new IllegalArgumentException("negatives not allowed: " + num);
+        }
     }
 }
