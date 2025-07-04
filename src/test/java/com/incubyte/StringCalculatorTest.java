@@ -16,4 +16,9 @@ public class StringCalculatorTest {
         assertEquals(1, calculator.add("1"));
     }
 
+    @Test
+    void shouldReturnSumWhenTwoNumbersProvided() {
+        assertEquals(3, calculator.add("1,2"));
+    }
+
 }
