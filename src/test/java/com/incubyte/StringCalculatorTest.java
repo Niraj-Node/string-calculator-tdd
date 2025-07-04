@@ -2,6 +2,7 @@ package com.incubyte;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StringCalculatorTest {
     private final StringCalculator calculator = new StringCalculator();
@@ -39,6 +40,15 @@ public class StringCalculatorTest {
     @Test
     void shouldSupportCustomDelimiterWithRegExpSpecialCharacters() {
         assertEquals(6, calculator.add("//*\n1*2*3"));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenSingleNegativeIsPassed() {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> calculator.add("1,-2,3")
+        );
+        assertEquals("negatives not allowed: -2", exception.getMessage());
     }
 
 }
