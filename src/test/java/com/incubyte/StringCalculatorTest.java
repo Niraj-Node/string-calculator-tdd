@@ -36,4 +36,9 @@ public class StringCalculatorTest {
         assertEquals(3, calculator.add("//;\n1;2"));
     }
 
+    @Test
+    void shouldSupportCustomDelimiterWithRegExpSpecialCharacters() {
+        assertEquals(6, calculator.add("//*\n1*2*3"));
+    }
+
 }
