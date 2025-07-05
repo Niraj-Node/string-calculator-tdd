@@ -6,7 +6,14 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class StringCalculator {
+    private int callCount = 0;
+
+    public int getCalledCount() {
+        return callCount;
+    }
+
     public int add(String numbers) {
+        callCount++;
         if (numbers.isEmpty()) return 0;
 
         String delimiter = "[,\n]";
