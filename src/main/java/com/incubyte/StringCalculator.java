@@ -9,17 +9,22 @@ import java.util.stream.Collectors;
 
 public class StringCalculator {
     private int callCount = 0;
+    private AddListener listener;
 
     public int getCalledCount() {
         return callCount;
     }
 
     public void setAddListener(AddListener listener) {
+        this.listener = listener;
     }
 
     public int add(String numbers) {
         callCount++;
-        if (numbers.isEmpty()) return 0;
+        if (numbers.isEmpty()) {
+            triggerAddEvent(numbers, 0);
+            return 0;
+        }
 
         String delimiter = "[,\n]";
 
@@ -29,7 +34,15 @@ public class StringCalculator {
         }
 
         String[] parts = numbers.split(delimiter);
-        return sumAndValidate(parts);
+        int sum = sumAndValidate(parts);
+        triggerAddEvent(numbers, sum);
+        return sum;
+    }
+
+    private void triggerAddEvent(String input, int result) {
+        if (listener != null) {
+            listener.onAdd(input, result);
+        }
     }
 
     private boolean hasCustomDelimiter(String input) {
