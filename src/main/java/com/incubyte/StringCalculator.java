@@ -54,7 +54,7 @@ public class StringCalculator {
         int delimiterEndIndex = input.indexOf("\n");
         String customDelimiter = input.substring(2, delimiterEndIndex);
 
-        // Multiple delimiters
+        // Multiple delimiters (any length)
         if (customDelimiter.startsWith("[") && customDelimiter.contains("][")) {
             List<String> delimiters = new ArrayList<>();
             int i = 0;
@@ -66,7 +66,7 @@ public class StringCalculator {
             }
             return String.join("|", delimiters);
         } else if (customDelimiter.startsWith("[") && customDelimiter.endsWith("]")) {
-            // Single delimiter
+            // Single delimiter (any length)
             String inner = customDelimiter.substring(1, customDelimiter.length() - 1);
             return Pattern.quote(inner);
         }
