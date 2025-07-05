@@ -1,6 +1,6 @@
 package com.incubyte;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -24,8 +24,7 @@ public class StringCalculator {
         }
 
         String[] parts = numbers.split(delimiter);
-        checkNegatives(parts);
-        return sumOf(parts);
+        return sumAndValidate(parts);
     }
 
     private boolean hasCustomDelimiter(String input) {
@@ -43,24 +42,23 @@ public class StringCalculator {
         return input.substring(delimiterEndIndex + 1);
     }
 
-    private int sumOf(String[] numbers) {
-        return Arrays.stream(numbers)
-                .map(String::trim)
-                .mapToInt(Integer::parseInt)
-                .sum();
-    }
+    private int sumAndValidate(String[] numbers) {
+        List<Integer> negatives = new ArrayList<>();
+        int sum = 0;
 
-    private void checkNegatives(String[] numbers) {
-        List<Integer> negatives = Arrays.stream(numbers)
-                .map(String::trim)
-                .mapToInt(Integer::parseInt)
-                .filter(n -> n < 0)
-                .boxed()
-                .toList();
+        for (String s : numbers) {
+            int num = Integer.parseInt(s.trim());
+            if (num < 0) {
+                negatives.add(num);
+            }
+            sum += num;
+        }
 
         if (!negatives.isEmpty()) {
             throw new IllegalArgumentException("negatives not allowed: " +
                     negatives.stream().map(Object::toString).collect(Collectors.joining(", ")));
         }
+
+        return sum;
     }
 }
