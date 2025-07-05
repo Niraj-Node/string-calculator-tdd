@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public class StringCalculator {
     private int callCount = 0;
     private AddListener listener;
+    private static final int MAX_ALLOWED_NUMBER = 1000;
 
     public int getCalledCount() {
         return callCount;
@@ -68,7 +69,7 @@ public class StringCalculator {
             int num = Integer.parseInt(s.trim());
             if (num < 0) {
                 negatives.add(num);
-            } else if (num <= 1000) {
+            } else if (num <= MAX_ALLOWED_NUMBER) {
                 sum += num;
             }
         }

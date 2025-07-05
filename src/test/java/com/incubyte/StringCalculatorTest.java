@@ -89,4 +89,9 @@ public class StringCalculatorTest {
     void shouldIgnoreNumbersGreaterThan1000() {
         assertEquals(6, calculator.add("//;\n1;2;1001;3"));
     }
+
+    @Test
+    void shouldIncludeNumberEqualToMaxAllowed() {
+        assertEquals(1002, calculator.add("2,1000"));
+    }
 }
