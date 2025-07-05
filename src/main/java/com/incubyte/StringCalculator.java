@@ -53,6 +53,12 @@ public class StringCalculator {
     private String extractDelimiter(String input) {
         int delimiterEndIndex = input.indexOf("\n");
         String customDelimiter = input.substring(2, delimiterEndIndex);
+
+        if (customDelimiter.startsWith("[") && customDelimiter.endsWith("]")) {
+            String inner = customDelimiter.substring(1, customDelimiter.length() - 1);
+            return Pattern.quote(inner);
+        }
+
         return Pattern.quote(customDelimiter);
     }
 
