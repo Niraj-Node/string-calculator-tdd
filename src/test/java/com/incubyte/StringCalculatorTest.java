@@ -60,4 +60,11 @@ public class StringCalculatorTest {
         assertEquals("negatives not allowed: -1, -4, -9", exception.getMessage());
     }
 
+    @Test
+    void shouldTrackNumberOfTimesAddMethodIsCalled() {
+        StringCalculator calculator = new StringCalculator();
+        calculator.add("1,2");
+        calculator.add("3,4");
+        assertEquals(2, calculator.getCalledCount());
+    }
 }
