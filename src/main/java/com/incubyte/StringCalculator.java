@@ -68,8 +68,9 @@ public class StringCalculator {
             int num = Integer.parseInt(s.trim());
             if (num < 0) {
                 negatives.add(num);
+            } else if (num <= 1000) {
+                sum += num;
             }
-            sum += num;
         }
 
         if (!negatives.isEmpty()) {
