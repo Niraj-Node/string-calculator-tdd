@@ -54,11 +54,24 @@ public class StringCalculator {
         int delimiterEndIndex = input.indexOf("\n");
         String customDelimiter = input.substring(2, delimiterEndIndex);
 
-        if (customDelimiter.startsWith("[") && customDelimiter.endsWith("]")) {
+        // Multiple delimiters
+        if (customDelimiter.startsWith("[") && customDelimiter.contains("][")) {
+            List<String> delimiters = new ArrayList<>();
+            int i = 0;
+            while ((i = customDelimiter.indexOf("[", i)) != -1) {
+                int end = customDelimiter.indexOf("]", i);
+                String d = customDelimiter.substring(i + 1, end);
+                delimiters.add(Pattern.quote(d));
+                i = end + 1;
+            }
+            return String.join("|", delimiters);
+        } else if (customDelimiter.startsWith("[") && customDelimiter.endsWith("]")) {
+            // Single delimiter
             String inner = customDelimiter.substring(1, customDelimiter.length() - 1);
             return Pattern.quote(inner);
         }
 
+        // Single character delimiter
         return Pattern.quote(customDelimiter);
     }
 
