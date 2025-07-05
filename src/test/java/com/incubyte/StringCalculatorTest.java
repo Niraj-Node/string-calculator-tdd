@@ -94,4 +94,9 @@ public class StringCalculatorTest {
     void shouldIncludeNumberEqualToMaxAllowed() {
         assertEquals(1002, calculator.add("2,1000"));
     }
+
+    @Test
+    void shouldSupportCustomDelimiterOfAnyLength() {
+        assertEquals(6, calculator.add("//[***]\n1***2***3"));
+    }
 }
