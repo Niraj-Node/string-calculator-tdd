@@ -1,5 +1,7 @@
 package com.incubyte;
 
+import com.incubyte.listeners.AddListener;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -10,6 +12,9 @@ public class StringCalculator {
 
     public int getCalledCount() {
         return callCount;
+    }
+
+    public void setAddListener(AddListener listener) {
     }
 
     public int add(String numbers) {

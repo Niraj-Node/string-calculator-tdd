@@ -67,4 +67,22 @@ public class StringCalculatorTest {
         calculator.add("3,4");
         assertEquals(2, calculator.getCalledCount());
     }
+
+    @Test
+    void shouldInvokeListenerWhenAddIsCalled() {
+        String[] captured = new String[1];
+        int[] result = new int[1];
+
+        StringCalculator calculator = new StringCalculator();
+        calculator.setAddListener((input, sum) -> {
+            captured[0] = input;
+            result[0] = sum;
+        });
+
+        calculator.add("1,2");
+
+        assertEquals("1,2", captured[0]);
+        assertEquals(3, result[0]);
+    }
+
 }
